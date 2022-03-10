@@ -19,15 +19,15 @@ trace.set_tracer_provider(provider)
 tracer = trace.get_tracer(__name__)
 
 def bubble_sort(data):
-    with tracer.start_as_current_span("root"):
-        for _ in range(len(data)):
-            for i in range(len(data) - 1):
-                if data[i] > data[i + 1]:
-                    data[i], data[i + 1] = data[i + 1], data[i]
+    for _ in range(len(data)):
+        for i in range(len(data) - 1):
+            if data[i] > data[i + 1]:
+                data[i], data[i + 1] = data[i + 1], data[i]
     return data
 
 a_list = [2, 1, 5, 4, 3]
 
-sorted_list = bubble_sort(a_list)
+with tracer.start_as_current_span("root"):
+    sorted_list = bubble_sort(a_list)
 
 print(sorted_list)
