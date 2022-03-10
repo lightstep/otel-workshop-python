@@ -18,18 +18,30 @@ trace.set_tracer_provider(provider)
 
 tracer = trace.get_tracer(__name__)
 
-def bubble_sort(data):
-    for _ in range(len(data)):
-        with tracer.start_as_current_span("outerLoop"):
-            for i in range(len(data) - 1):
-                with tracer.start_as_current_span("innerLoop"):
-                    if data[i] > data[i + 1]:
-                        data[i], data[i + 1] = data[i + 1], data[i]
-        return data
 
-a_list = [2, 1, 5, 4, 3, 7, 1]
-
+def bubbleSort(arr):
+    n = len(arr)
+ 
+    # Traverse through all array elements
+    for i in range(n-1):
+    # range(n) also work but outer loop will
+    # repeat one time more than needed.
+ 
+        # Last i elements are already in place
+        for j in range(0, n-i-1):
+ 
+            # traverse the array from 0 to n-i-1
+            # Swap if the element found is greater
+            # than the next element
+            if arr[j] > arr[j + 1] :
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+ 
+# Driver code to test above
+arr = [64, 34, 25, 12, 22, 11, 90]
+ 
 with tracer.start_as_current_span("root"):
-    sorted_list = bubble_sort(a_list)
-
-print(sorted_list)
+    bubbleSort(arr)
+ 
+print ("Sorted array is:")
+for i in range(len(arr)):
+    print ("% d" % arr[i],end=" ")
