@@ -9,12 +9,21 @@ from opentelemetry.sdk.trace.export import (
 )
 
 #Define resource to identify our service
-resource = Resource.create({"service.name": "basic_service"})
+resource = Resource.create({"service.name": "InstructorPython"})
+
+access_token = "<ACCESS_TOKEN>"
 
 #configure initial tracer
 provider = TracerProvider(resource=resource)
 processor = BatchSpanProcessor(ConsoleSpanExporter())
+
+OTLPProcessor =  BatchSpanProcessor(OTLPSpanExporter(
+    endpoint:="https://ingest.lightstep.com/traces/otlp/v0.9",
+    headers = (("lightstep-access-token", access_token),)
+))
+
 provider.add_span_processor(processor)
+# provider.add_span_processor(OTLPProcessor)
 trace.set_tracer_provider(provider)
 
 tracer = trace.get_tracer(__name__)
@@ -61,7 +70,7 @@ with tracer.start_as_current_span("parent"):
         bubbleSort(arr)
     except Exception as ex:
         current_span.record_exception(ex)
-        current_span.set_status(Status(StatusCode.ERROR, ex))
+        current_span.set_status(Status(StatusCode.ERROR))
 
 
 print ("Sorted array is:")
