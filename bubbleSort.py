@@ -22,8 +22,8 @@ OTLPProcessor =  BatchSpanProcessor(OTLPSpanExporter(
     headers = (("lightstep-access-token", access_token),)
 ))
 
-provider.add_span_processor(processor)
-# provider.add_span_processor(OTLPProcessor)
+# provider.add_span_processor(processor)
+provider.add_span_processor(OTLPProcessor)
 trace.set_tracer_provider(provider)
 
 tracer = trace.get_tracer(__name__)
