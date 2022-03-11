@@ -9,20 +9,23 @@ from opentelemetry.sdk.trace.export import (
 )
 
 #Define resource to identify our service
-resource = Resource.create({"service.name": "InstructorPython"})
+resource = Resource.create({"service.name": "basic_service"})
 
-access_token = "<ACCESS_TOKEN>"
+access_token = "acces_token"
 
 #configure initial tracer
 provider = TracerProvider(resource=resource)
 processor = BatchSpanProcessor(ConsoleSpanExporter())
 
 OTLPProcessor =  BatchSpanProcessor(OTLPSpanExporter(
-    endpoint:="https://ingest.lightstep.com/traces/otlp/v0.9",
+    endpoint = "https://ingest.lightstep.com:443/traces/otlp/v0.9",
     headers = (("lightstep-access-token", access_token),)
 ))
 
-# provider.add_span_processor(processor)
+#configure initial tracer
+provider = TracerProvider(resource=resource)
+processor = BatchSpanProcessor(ConsoleSpanExporter())
+provider.add_span_processor(processor)
 provider.add_span_processor(OTLPProcessor)
 trace.set_tracer_provider(provider)
 

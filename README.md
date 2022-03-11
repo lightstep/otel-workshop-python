@@ -26,6 +26,16 @@ This example shows how to use OpenTelemetry's API to create, augment, and report
 
 You should see traces exported to your console and your instance of Lightstep if you appropriately configured your access token.
 
+## Troubleshooting
+
+***
+
+If you are seeing SSL errors when attempting to send to a tracing backend, please try:
+```python3 -m venv ./venv
+source ./venv/bin/activate
+pip3 install opentelemetry-api opentelemetry-sdk opentelemetry-exporter-otlp
+```
+
 ## Useful Links
 
 * * *
