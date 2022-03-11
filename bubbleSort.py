@@ -1,7 +1,10 @@
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.resources import Resource
+<<<<<<< Updated upstream
 from opentelemetry.trace.status import Status, StatusCode
+=======
+>>>>>>> Stashed changes
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 from opentelemetry.sdk.trace.export import (
     BatchSpanProcessor,
